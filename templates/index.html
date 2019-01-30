@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Plants Diseases - AI Geeks</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename = 'bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename = 'one-page-wonder.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'dropify.min.css') }}">
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">🍂  Plants Diseases</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link l_ai">How does it work?</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link l_frm">Use it now</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white">
+      <div class="masthead-content">
+        <div class="container">
+          <h1 class="masthead-subheading mb-0">Plants Diseases Recognition</h1>
+          <h2 class="masthead-subheading mb-0">Using AI 😉 </h2>
+          <a class="l_ai btn btn-primary btn-xl rounded-pill mt-5">How does it work?</a>
+		  <a class="l_frm btn btn-primary btn-xl rounded-pill mt-5">Use it now</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="ai">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="{{ url_for('static', filename = 'Tomato___Septoria_leaf_spot.jpg') }}" alt="">
+            </div>
+          </div>
+		  <div class="col-lg-6">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="{{ url_for('static', filename = 'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot.jpg') }}" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+	
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="p-1">
+              <h2>Tomato Septoria leaf spot - 100%</h2>
+            </div>
+          </div>
+		  <div class="col-lg-6">
+            <div class="p-1">
+              <h2>Corn Cercospora leaf spot - 82.59%</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+	
+    <section id="frm">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-12">
+            <div class="p-5">
+              <h2 style="color:white">Now you can upload image and test it</h2>
+            </div>
+          </div>
+		  <div class="col-lg-12" style="position:relative">
+			  <form action="{{ url_for('main') }}"enctype="multipart/form-data" method="POST">
+					<div class="col-lg-8">
+    					{% if result %}
+    					<input type="file" name="file" id="input-file-now-custom-1" data-height="300" class="dropify" data-default-file="{{ url_for('send_file', filename=result['img']) }}" />
+    					{% else %}
+    					<input type="file" name="file" id="input-file-now-custom-1" data-height="300" class="dropify" />
+    					{% endif %}
+					</div>
+					<button type="submit" style="position:absolute;right:5%;top:85px;" class="btn btn-primary btn-xl rounded-pill mt-5">Test Now</button>
+			  </form>
+			  <div class="result" align="center">
+				{% if result %}
+					   <p style="font-size:40px;color:white">{{ result["Class"] }} {{ result["predict"] }}%</p>
+				{% endif %}
+			</div>
+		  </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-black">
+      <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename = 'jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'dropify.min.js') }}"></script>
+	<script>
+	$(document).ready(function(){
+		$('.dropify').dropify();
+		$(".l_ai").click(function() {
+			$('html, body').animate({
+				scrollTop: $("#ai").offset().top
+			}, 1000);
+		});
+		
+		$(".l_frm").click(function() {
+			$('html, body').animate({
+				scrollTop: $("#frm").offset().top
+			}, 1000);
+		});
+		
+		$(".navbar-brand").click(function() {
+			$('html, body').animate({
+				scrollTop: 0
+			}, 1000);
+		});
+	});
+	</script>
+	
+	{% if scroll %}
+        <script>
+            $('html, body').animate({
+				scrollTop: $("#frm").offset().top
+			}, 1000);
+        </script>
+    {% endif %}
+	
+  </body>
+
+</html>
